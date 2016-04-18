@@ -1,0 +1,4 @@
+include pyreact/manifest.json
+
+recursive-include pyreact/templates *.html
+recursive-include pyreact/public *.js *.css
