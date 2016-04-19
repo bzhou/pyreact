@@ -2,11 +2,9 @@ from fabric.api import *
 
 env.hosts = ['localhost']
 
-vip_to_services = {
-    # 'vip1' : ['s100', 's101', 's102', 's103'],
-    # 'vip2' : ['s200', 's201', 's202', 's203'],
-    'room1' : ['bacon', 'eggs', 'ham', 'sausage'],
-    'room2' : ['bacon', 'eggs', 'ham', 'sausage'],
+lookup = {
+    'vips': ['room1', 'room2'],
+    'services' : ['bacon', 'eggs', 'ham', 'sausage'],
 }
 
 try:
@@ -24,11 +22,11 @@ def status(vip):
         result = run("cat %s" % vip, shell=False, pty=False)
         s = result.stdout
     status_dict = {}
-    for service in vip_to_services[vip]:
+    for service in lookup['services']:
         vip_and_service = vip + "/" + service
         status_dict[vip_and_service] = False
     for line in StringIO.StringIO(s):
-        for service in vip_to_services[vip]:
+        for service in lookup['services']:
             vip_and_service = vip + "/" + service
             if line.strip() == "%s=true" % (service):
                 status_dict[vip_and_service] = True
@@ -49,4 +47,4 @@ def disable(vip, service):
     _change(vip, service, "false")
 
 def get_vips():
-    return {'vips': vip_to_services.keys()}
+    return {'vips': lookup['vips']}
