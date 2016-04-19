@@ -15,8 +15,10 @@ module.exports = {
         path: "./pyreact/public",
         publicPath: "/assets/",
         filename: "[name].[chunkhash].js",
-        chunkFilename: "[id].[chunkhash].chunk"
+        chunkFilename: "[id].[chunkhash].chunk",
+        sourceMapFilename: "[name].[chunkhash].js.map",
     },
+    // devtool: "source-map",
     resolve: {
         extensions: ["", ".js", ".css", ".scss"]
     },
