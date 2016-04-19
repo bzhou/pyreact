@@ -8,7 +8,7 @@ setup(
         version=__version__,
         description="Flask + React",
         author="Brian Zhou",
-        author_email="bzhou@dvd.com",
+        author_email="b88zhou@gmail.com",
         packages=find_packages(),
         include_package_data=True,
         install_requires=[

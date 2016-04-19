@@ -1,10 +1,10 @@
 
     $ git clone this_pyreact_repo
+    $ pip install -U pip    # just make sure pip is up-to-date
     $ pip install virtualenv
     $ virtualenv pyreact
     $ cd pyreact
     $ . bin/activate
-    $ pip install -U pip
     $ pip install Flask Flask-Webpack Fabric
     $ echo '{}' > package.json
     $ npm install -save webpack \
