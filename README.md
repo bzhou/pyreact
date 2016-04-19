@@ -19,7 +19,7 @@ prep fab
     $ ssh-copy-id localhost
     $ touch ~/room1 ~/room2
 
-run flask
+run flask (must be in the python virtualenv)
 
     $ DEBUG=1 bin/python run.py
 
