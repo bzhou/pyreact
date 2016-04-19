@@ -1,3 +1,5 @@
+Instruction
+-----------
 
     $ git clone this_pyreact_repo
     $ pip install -U pip    # just make sure pip is up-to-date
@@ -12,10 +14,17 @@
       babel-core babel-loader babel-preset-es2015 babel-preset-es2015 \
       style-loader css-loader sass-loader node-sass \
       manifest-revision-webpack-plugin extract-text-webpack-plugin \
+
+    $ ssh-copy-id localhost   # prepare for fab
+    $ touch ~/room1 ~/room2
+
     term2 $ cd pyreact
     term2 $ ./node_modules/.bin/webpack --watch
     $ DEBUG=1 bin/python run.py
 
 
+Reference and Credit
+--------------------
 
-
+* https://medium.com/@greut/react-and-sass-with-flask-webpack-9c13cb3a5c56#.9ktrs5x6o
+* https://www.twilio.com/blog/2015/08/setting-up-react-for-es6-with-webpack-and-babel-2.html
