@@ -2,9 +2,11 @@ Instruction
 -----------
 
 clone the repo
+
     $ git clone this_pyreact_repo
 
 python virtualenv
+
     $ pip install -U pip    # just make sure pip is up-to-date
     $ pip install virtualenv
     $ virtualenv pyreact
@@ -13,13 +15,16 @@ python virtualenv
     $ pip install Flask Flask-Webpack Fabric
 
 prep fab
+
     $ ssh-copy-id localhost
     $ touch ~/room1 ~/room2
 
 run flask
+
     $ DEBUG=1 bin/python run.py
 
 javascript & webpack prep
+
     term2 $ cd pyreact
     term2 $ echo '{}' > package.json
     term2 $ npm install -save webpack \
@@ -29,6 +34,7 @@ javascript & webpack prep
       manifest-revision-webpack-plugin extract-text-webpack-plugin \
 
 run webpack
+
     term2 $ ./node_modules/.bin/webpack --watch
 
 
