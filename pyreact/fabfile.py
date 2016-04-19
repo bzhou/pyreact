@@ -38,7 +38,7 @@ def status(vip):
 def _change(vip, service, target_status):
     with settings(warn_only=True):
         run("grep -q %s= %s" % (service, vip) +
-            " && /usr/local/bin/gsed -i '/^%s=/s/=.*/=%s/' %s" % (service, target_status, vip) +
+            " && ( (echo 'g/^%s=/s/=.*/=%s/'; echo wq) | ex %s )" % (service, target_status, vip) +
             " || (echo %s=%s >> %s)" % (service, target_status, vip),
            shell=False)
 
