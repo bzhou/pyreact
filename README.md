@@ -28,7 +28,7 @@ javascript & webpack prep
     term2 $ cd pyreact
     term2 $ echo '{}' > package.json
     term2 $ npm install -save webpack \
-      react react-dom react-toggle \
+      react react-dom react-addons-update react-toggle \
       babel-core babel-loader babel-preset-es2015 babel-preset-es2015 \
       style-loader css-loader sass-loader node-sass \
       manifest-revision-webpack-plugin extract-text-webpack-plugin \

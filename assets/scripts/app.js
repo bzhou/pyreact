@@ -3,6 +3,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import update from 'react-addons-update'
 import Toggle from 'react-toggle'
 
 import 'react-toggle/style.css'
@@ -14,7 +15,7 @@ class App extends React.Component {
     constructor(props) {
       super(props);
       this.displayName = 'App';
-      this.state = {};
+      this.state = { isLoading: {} };
       this.handleChange = this.handleChange.bind(this);
     }
 
@@ -27,13 +28,21 @@ class App extends React.Component {
       .then( response => response.json() )
       .then( json =>
         json.vips.forEach(vip =>
-          this.getRemoteStatus(vip)))
+	  this.getRemoteStatus(vip)))
+    }
+
+    setIsLoading(vip, b) {
+      this.setState(update(this.state, {isLoading: {$merge: {[vip]: b}}}));
+      console.log("this.state.isLoading=" + JSON.stringify(this.state.isLoading));
     }
 
     getRemoteStatus(vip) {
+      this.setIsLoading(vip, true);
       fetch('/vip_status/' + vip)
       .then( response => response.json() )
-      .then( json => this.setState(json) );
+      .then( json => {
+	this.setState(json);
+        this.setIsLoading(vip, false)});
       // this.setState({[key]: event.target.checked})
     }
 
@@ -44,6 +53,7 @@ class App extends React.Component {
 
     dim(n) {
       return [...new Set(Object.keys(this.state)
+		.filter(s => s.includes("/"))
                 .map(s => s.split("/")[n]))].sort();
     }
 
@@ -54,7 +64,7 @@ class App extends React.Component {
 
     render() {
       const dim0 = this.dim(0), dim1 = this.dim(1);
-      const th = ["", ...dim0].map(k0 => (<th>{k0}</th>));
+      const th = ["", ...dim0].map(k0 => (<th>{k0} {this.state.isLoading[k0] ? "?" : " "}</th>));
       const rows = [];
       dim1.forEach( k1 => {
           const row = [<td>{k1}</td>]

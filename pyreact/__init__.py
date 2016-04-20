@@ -4,6 +4,7 @@ from flask_webpack import Webpack
 from version import __version__
 import fabfile
 import fabric
+import time
 
 here = path.abspath(path.dirname(__file__))
 
@@ -34,6 +35,7 @@ def vips():
 @app.route("/vip_status/<vip>")
 def vip_status(vip):
     r = fabric.api.execute(fabfile.status, vip, hosts=[lb_host])
+    time.sleep(2)
     return jsonify(r[lb_host])
 
 
