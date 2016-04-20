@@ -15,8 +15,14 @@ class App extends React.Component {
     constructor(props) {
       super(props);
       this.displayName = 'App';
-      this.state = { isLoading: {} };
+      this.state = { isLoading: {}, status: {} };
       this.handleChange = this.handleChange.bind(this);
+    }
+
+    updateState(loading, status) {
+      var newState = update(this.state, {isLoading: {$merge: loading}});
+      newState = update(newState, {status: {$merge: status}});
+      this.setState(newState);
     }
 
     componentWillMount() {
@@ -28,38 +34,29 @@ class App extends React.Component {
       .then( response => response.json() )
       .then( json =>
         json.vips.forEach(vip =>
-	  this.getRemoteStatus(vip)))
-    }
-
-    setIsLoading(vip, b) {
-      this.setState(update(this.state, {isLoading: {$merge: {[vip]: b}}}));
-      console.log("this.state.isLoading=" + JSON.stringify(this.state.isLoading));
+          this.getRemoteStatus(vip)))
     }
 
     getRemoteStatus(vip) {
-      this.setIsLoading(vip, true);
+      this.updateState({[vip]: true}, {});
       fetch('/vip_status/' + vip)
       .then( response => response.json() )
-      .then( json => {
-	this.setState(json);
-        this.setIsLoading(vip, false)});
-      // this.setState({[key]: event.target.checked})
+      .then( status => this.updateState({[vip]: false}, status) );
     }
 
     setRemoteStatus(vip, service, enable) {
       const cmd = enable ? "enable_service" : "disable_service";
       fetch(`/${cmd}/${vip}/${service}`)
+      .then( response => this.getRemoteStatus(vip) );
     }
 
     dim(n) {
-      return [...new Set(Object.keys(this.state)
-		.filter(s => s.includes("/"))
+      return [...new Set(Object.keys(this.state.status)
                 .map(s => s.split("/")[n]))].sort();
     }
 
     handleChange(event, k0, k1) {
       this.setRemoteStatus(k0, k1, event.target.checked);
-      this.getRemoteStatus(k0);
     }
 
     render() {
@@ -74,7 +71,7 @@ class App extends React.Component {
               <td>
                 <Toggle
                   id={k}
-                  checked={this.state[k]}
+                  checked={this.state.status[k]}
                   onChange={ ev => this.handleChange(ev, k0, k1) } />
               </td>
             )

@@ -35,7 +35,7 @@ def vips():
 @app.route("/vip_status/<vip>")
 def vip_status(vip):
     r = fabric.api.execute(fabfile.status, vip, hosts=[lb_host])
-    time.sleep(2)
+    time.sleep(1)
     return jsonify(r[lb_host])
 
 
