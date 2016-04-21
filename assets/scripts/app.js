@@ -41,7 +41,11 @@ class App extends React.Component {
       this.updateState({[vip]: true}, {});
       fetch('/vip_status/' + vip)
       .then( response => response.json() )
-      .then( status => this.updateState({[vip]: false}, status) );
+      .then( status => this.updateState({[vip]: false}, status) )
+      .catch( err => {
+        this.updateState({[vip]: false}, {});
+        console.log(err);
+      })
     }
 
     setRemoteStatus(vip, service, enable) {
