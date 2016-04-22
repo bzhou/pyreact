@@ -20,9 +20,9 @@ class App extends React.Component {
     }
 
     updateState(loading, status) {
-      var newState = update(this.state, {isLoading: {$merge: loading}});
-      newState = update(newState, {status: {$merge: status}});
-      this.setState(newState);
+      const s1 = update(this.state, {isLoading: {$merge: loading}});
+      const s2 = update(s1, {status: {$merge: status}});
+      this.setState(s2);
     }
 
     componentWillMount() {
