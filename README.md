@@ -19,7 +19,7 @@ prep fab
     $ ssh-copy-id localhost
     $ touch ~/room1 ~/room2
 
-javascript & webpack prep
+javascript & webpack prep (install node first, on mac, brew install node)
 
     term2 $ cd pyreact
     term2 $ echo '{}' > package.json
@@ -28,6 +28,7 @@ javascript & webpack prep
       babel-core babel-loader babel-preset-es2015 babel-preset-react \
       style-loader css-loader sass-loader node-sass \
       manifest-revision-webpack-plugin extract-text-webpack-plugin \
+      whatwg-fetch \
 
 run webpack
 
